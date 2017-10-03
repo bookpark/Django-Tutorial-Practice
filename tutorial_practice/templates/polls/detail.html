@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>상세</title>
+</head>
+<body>
+<h2>{{ question.title }}</h2>
+<form action="{% url 'vote' pk=question.pk %}" method="POST">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+        <div class="radio">
+            <label>
+                <input type="radio" name="vote" value="{{ choice.pk }}">
+                {{ choice.title }}
+                {{ choice.votes }}
+            </label>
+        </div>
+    {% endfor %}
+    <input type="submit" value="투표하기">
+</form>
+</body>
+</html>
